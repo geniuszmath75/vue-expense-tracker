@@ -1,47 +1,32 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <Header />
+  <div class="container">
+    <Balance />
+    <IncomeExpenses/>
+    <TransationList :transactions="transactions"/>
+    <AddTransaction />
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<script setup>
+import Header from "./components/Header.vue";
+import Balance from "./components/Balance.vue";
+import IncomeExpenses from "./components/IncomeExpenses.vue";
+import TransationList from "./components/TransactionList.vue";
+import AddTransaction from "./components/AddTransaction.vue";
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+import { ref, computed } from 'vue';
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+const transactions = ref([
+  { id: 1, text: "Chleb", amount: -8.99 },
+  { id: 1, text: "Laptop", amount: -4999.99 },
+  { id: 1, text: "Pensja", amount: 3.998 },
+  { id: 1, text: "Stary telefon", amount: 700 },
+]);
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+const total = computed(() => {
+  return transactions
+});
+</script>
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+<style scoped></style>
